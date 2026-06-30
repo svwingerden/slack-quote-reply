@@ -8,6 +8,10 @@ import { showToast } from "./toast.js";
 function handleQuote(messageEl, textOverride = null) {
   const info = extractMessage(messageEl);
   const text = textOverride != null ? textOverride : info.text;
+  if (!text.trim()) {
+    showToast("Couldn't read the message text to quote.");
+    return;
+  }
   const quote = formatQuote({ ...info, text });
   if (!insertIntoComposer(messageEl, quote)) {
     showToast("Couldn't find the message box to insert the quote.");

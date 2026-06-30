@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { JSDOM } from "jsdom";
-import { extractMessage, findMessageRoot } from "../src/extractor.js";
+import { extractMessage, findMessageRoot, findAuthor } from "../src/extractor.js";
 
 function setup() {
   const html = readFileSync(new URL("./fixtures/messages.html", import.meta.url), "utf8");
@@ -31,4 +31,15 @@ test("findMessageRoot walks up from a descendant node", () => {
   const doc = setup();
   const body = doc.querySelector("#msg2 .c-message__body");
   assert.equal(findMessageRoot(body).id, "msg2");
+});
+
+test("findMessageRoot resolves from a text node (not just an element)", () => {
+  const doc = setup();
+  const textNode = doc.querySelector("#msg1 .p-rich_text_section").firstChild;
+  assert.equal(findMessageRoot(textNode).id, "msg1");
+});
+
+test("findAuthor walks back multiple messages to the group's sender", () => {
+  const doc = setup();
+  assert.equal(findAuthor(doc.getElementById("msg3")), "Alice");
 });
