@@ -7,7 +7,7 @@ function makeButton(messageEl, onQuote) {
   const b = document.createElement("button");
   b.className = "sqr-hover-btn";
   b.type = "button";
-  b.title = "Quote reply";
+  b.title = "Reply";
   b.textContent = "⤷";
   b.addEventListener("click", (e) => {
     e.preventDefault();

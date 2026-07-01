@@ -7,7 +7,7 @@ function ensureButton() {
   btn = document.createElement("button");
   btn.className = "sqr-quote-btn";
   btn.type = "button";
-  btn.textContent = "⤷ Quote";
+  btn.textContent = "⤷ Reply";
   document.body.appendChild(btn);
   return btn;
 }
