@@ -9,7 +9,7 @@ Desktop Slack (Electron) is not supported — browser only.
 ## Install (unpacked)
 1. `chrome://extensions` → enable Developer mode.
 2. "Load unpacked" → select this folder.
-3. Open `app.slack.com`. Console should log `[slack-quote-reply] loaded`.
+3. Open `app.slack.com`. Console should log `[slack-quote-reply] active (selection + hover)`.
 
 ## Develop
 - `npm install` (jsdom, for tests)
@@ -17,8 +17,14 @@ Desktop Slack (Electron) is not supported — browser only.
 - After editing files, hit the reload icon on the extension card.
 
 ## Note on insertion
-Quotes are inserted as `> …` text, which Slack renders as a blockquote. If the
-default WYSIWYG composer ever stops rendering programmatically-inserted `>` as a
-quote, the only change needed is the body of `insertIntoComposer` in
-`src/inserter.js` (swap the `execCommand` call for a synthetic `paste` carrying
-`text/html` `<blockquote>` + `text/plain`).
+Quotes are inserted by dispatching a synthetic `paste` event at the composer
+carrying two arms (`src/inserter.js`):
+- `text/html` — a `<blockquote>` with a bold author, the quoted text, and a
+  clickable `↗ original` link. The default WYSIWYG composer turns this into a
+  real quote block.
+- `text/plain` — the mrkdwn equivalent (`> …` with `<url|↗ original>`), which
+  the "Format messages with markup" mode and the on-send parser honor.
+
+The composer takes whichever arm its mode understands, so both settings work.
+The two rendered forms are built by `formatQuoteHtml` / `formatQuote` in
+`src/formatter.js`.
