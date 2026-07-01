@@ -9,7 +9,8 @@ export const SELECTORS = {
   primaryPane: ".p-workspace__primary_view",
   threadPane: ".p-flexpane",
   hoverActions: ".c-message_actions__container",
-  // The ✕ on the composer's draft link-unfurl preview (the ✕ is an <i> icon;
-  // we click its wrapping button).
+  // The composer's draft link-unfurl preview card, and its ✕. The ✕ mounts
+  // only while the card is hovered, so the remover synthesizes hover first.
+  unfurlPreview: ".p-draft_unfurls",
   unfurlRemove: ".p-draft_unfurls__remove_btn_times, .p-draft_unfurls__remove_btn",
 };
