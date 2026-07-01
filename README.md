@@ -17,14 +17,11 @@ Desktop Slack (Electron) is not supported — browser only.
 - After editing files, hit the reload icon on the extension card.
 
 ## Note on insertion
-Quotes are inserted by dispatching a synthetic `paste` event at the composer
-carrying two arms (`src/inserter.js`):
-- `text/html` — a `<blockquote>` with a bold author, the quoted text, and a
-  clickable `↗ original` link. The default WYSIWYG composer turns this into a
-  real quote block.
-- `text/plain` — the mrkdwn equivalent (`> …` with `<url|↗ original>`), which
-  the "Format messages with markup" mode and the on-send parser honor.
+Quotes are inserted as plain text via `execCommand("insertText")`
+(`src/inserter.js`); Slack's composer live-converts the mrkdwn as if you typed
+it — `>` → quote block, `*bold*`, and `[↗ original](url)` → a clickable link.
+The quote string is built by `formatQuote` in `src/formatter.js`.
 
-The composer takes whichever arm its mode understands, so both settings work.
-The two rendered forms are built by `formatQuoteHtml` / `formatQuote` in
-`src/formatter.js`.
+Note: Slack's own `<url|label>` link syntax does NOT convert on paste (Slack
+auto-linkifies the raw URL and drops the label), which is why the standard
+markdown `[label](url)` form is used instead.

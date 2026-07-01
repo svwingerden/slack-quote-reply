@@ -1,5 +1,5 @@
 import { extractMessage } from "./extractor.js";
-import { formatQuote, formatQuoteHtml } from "./formatter.js";
+import { formatQuote } from "./formatter.js";
 import { insertIntoComposer } from "./inserter.js";
 import { initSelectionWatcher } from "./selection-watcher.js";
 import { initHoverButtons } from "./hover-button.js";
@@ -12,8 +12,8 @@ function handleQuote(messageEl, textOverride = null) {
     showToast("Couldn't read the message text to quote.");
     return;
   }
-  const fields = { ...info, text };
-  if (!insertIntoComposer(messageEl, formatQuoteHtml(fields), formatQuote(fields))) {
+  const quote = formatQuote({ ...info, text });
+  if (!insertIntoComposer(messageEl, quote)) {
     showToast("Couldn't find the message box to insert the quote.");
   }
 }
