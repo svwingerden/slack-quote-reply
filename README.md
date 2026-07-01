@@ -1,20 +1,32 @@
 # Slack Quote Reply
 
-One-click quote-reply for Slack in the browser (Chrome/Brave). Adds:
-- a **selection popup** — highlight text in a message → "⤷ Quote" → it lands in the composer
-- a **hover button** — hover a message → quote the whole thing
+Slack has no quote-reply. This adds one for Slack **in the browser** (Chrome/Brave):
 
-Desktop Slack (Electron) is not supported — browser only.
+- **Selection popup** — highlight any part of a message → click **⤷ Reply** → it drops into the composer as a quote.
+- **Hover button** — hover a message → click **⤷** → quotes the whole message.
 
-## Install (unpacked)
-1. `chrome://extensions` → enable Developer mode.
-2. "Load unpacked" → select this folder.
-3. Open `app.slack.com`. Console should log `[slack-quote-reply] active (selection + hover)`.
+Each quote shows the author's name as a **clickable link** back to the original, with your cursor ready below. Works on `app.slack.com`. The Slack **desktop app is not supported** — a browser extension can't reach it, so use Slack in Chrome/Brave.
 
-## Develop
-- `npm install` (jsdom, for tests)
+## Install
+
+No build step and no dependencies — you just load the folder as an unpacked extension.
+
+1. **Get the files**, either:
+   - **Download ZIP** — on the [GitHub page](https://github.com/svwingerden/slack-quote-reply), click **Code ▸ Download ZIP**, then unzip it; or
+   - **Clone** — `git clone https://github.com/svwingerden/slack-quote-reply.git`
+2. Open **`chrome://extensions`** (or **`brave://extensions`**) and turn on **Developer mode** (top-right toggle).
+3. Click **Load unpacked** and select the `slack-quote-reply` folder — the one containing `manifest.json`.
+4. Open or refresh **app.slack.com**. Highlight text in a message (or hover a message) and use the **⤷ Reply** button.
+
+**Updating later:** `git pull` (or re-download the ZIP), then click the **↻ reload** icon on the extension's card in `chrome://extensions`.
+
+## Develop / tests
+
+Only needed if you want to run the tests:
+
+- `npm install` (installs jsdom)
 - `npm test` (runs `node --test`)
-- After editing files, hit the reload icon on the extension card.
+- After editing source files, hit the **↻ reload** icon on the extension's card.
 
 ## Note on insertion
 Quotes are inserted as plain text via `execCommand("insertText")`
