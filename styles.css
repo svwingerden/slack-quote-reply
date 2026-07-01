@@ -38,13 +38,15 @@
   font: 13px/1.3 sans-serif;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
-/* While we dismiss the draft unfurl, keep the card off-screen so it never
-   visibly flashes — it stays in the DOM (hidden) so the remover can still
-   hover + click its ✕ to suppress the unfurl on send. */
-body.sqr-suppressing-unfurl .p-draft_unfurls {
-  position: absolute !important;
-  opacity: 0 !important;
+/* While we dismiss the draft unfurl, collapse the composer's whole attachments
+   row so the card never visibly flashes and reserves no space. It stays in the
+   DOM (clipped) so the remover can still hover + click its ✕ to suppress the
+   unfurl on send. */
+body.sqr-suppressing-unfurl .p-message_input__attachments,
+body.sqr-suppressing-unfurl .c-wysiwyg_container__attachments {
   height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
   overflow: hidden !important;
-  pointer-events: none !important;
 }
