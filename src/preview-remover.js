@@ -12,9 +12,9 @@ export function dismissLinkPreview(messageEl, attempts = 15, intervalMs = 300) {
     document;
   let tries = 0;
   const timer = setInterval(() => {
-    const btn = scope.querySelector(SELECTORS.unfurlRemove);
-    if (btn) {
-      btn.click();
+    const hit = scope.querySelector(SELECTORS.unfurlRemove);
+    if (hit) {
+      (hit.closest('button, [role="button"]') || hit).click();
       clearInterval(timer);
     } else if (++tries >= attempts) {
       clearInterval(timer);

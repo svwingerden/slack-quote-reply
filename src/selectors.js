@@ -9,8 +9,7 @@ export const SELECTORS = {
   primaryPane: ".p-workspace__primary_view",
   threadPane: ".p-flexpane",
   hoverActions: ".c-message_actions__container",
-  // Best-guess for the composer's link-unfurl preview remove button — verify
-  // against live Slack (inspect the preview's ✕) and adjust if it misses.
-  unfurlRemove:
-    'button[data-qa="unfurl_preview_delete"], button[aria-label*="Remove attachment" i], button[aria-label*="Remove preview" i]',
+  // The ✕ on the composer's draft link-unfurl preview (the ✕ is an <i> icon;
+  // we click its wrapping button).
+  unfurlRemove: ".p-draft_unfurls__remove_btn_times, .p-draft_unfurls__remove_btn",
 };
