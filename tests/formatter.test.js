@@ -10,13 +10,13 @@ test("author + permalink: the name is the clickable link (multi-line)", () => {
   });
   assert.equal(
     out,
-    "> [Alice](https://x/p1): can you rerun the triangle job\n> with the new seed?",
+    "> *[Alice](https://x/p1):* can you rerun the triangle job\n> with the new seed?",
   );
 });
 
 test("author + permalink: single line keeps the link on the name", () => {
   const out = formatQuote({ text: "hey", author: "Alice", permalink: "https://x/p3" });
-  assert.equal(out, "> [Alice](https://x/p3): hey");
+  assert.equal(out, "> *[Alice](https://x/p3):* hey");
 });
 
 test("author, no permalink: falls back to a bold name", () => {
