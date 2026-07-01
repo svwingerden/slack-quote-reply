@@ -1,6 +1,7 @@
 import { extractMessage } from "./extractor.js";
 import { formatQuote } from "./formatter.js";
 import { insertIntoComposer } from "./inserter.js";
+import { dismissLinkPreview } from "./preview-remover.js";
 import { initSelectionWatcher } from "./selection-watcher.js";
 import { initHoverButtons } from "./hover-button.js";
 import { showToast } from "./toast.js";
@@ -15,6 +16,10 @@ function handleQuote(messageEl, textOverride = null) {
   const quote = formatQuote({ ...info, text });
   if (!insertIntoComposer(messageEl, quote)) {
     showToast("Couldn't find the message box to insert the quote.");
+    return;
+  }
+  if (info.author && info.permalink) {
+    dismissLinkPreview(messageEl);
   }
 }
 

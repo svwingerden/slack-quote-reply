@@ -19,9 +19,15 @@ Desktop Slack (Electron) is not supported — browser only.
 ## Note on insertion
 Quotes are inserted as plain text via `execCommand("insertText")`
 (`src/inserter.js`); Slack's composer live-converts the mrkdwn as if you typed
-it — `>` → quote block, `*bold*`, and `[↗ original](url)` → a clickable link.
-The quote string is built by `formatQuote` in `src/formatter.js`.
+it — `>` → quote block, and `[author](url)` → the author's name as a clickable
+link to the original message. The quote string is built by `formatQuote` in
+`src/formatter.js`.
 
 Note: Slack's own `<url|label>` link syntax does NOT convert on paste (Slack
 auto-linkifies the raw URL and drops the label), which is why the standard
 markdown `[label](url)` form is used instead.
+
+Inserting a message link makes Slack show an unfurl preview card in the
+composer; `src/preview-remover.js` polls for its remove button and dismisses it
+(the inline link stays). The button selector (`SELECTORS.unfurlRemove`) is a
+best guess — adjust it against live Slack if the preview doesn't disappear.
