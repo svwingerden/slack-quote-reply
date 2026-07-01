@@ -19,5 +19,5 @@ export function insertIntoComposer(messageEl, quoteText) {
   sel.collapseToEnd();
   // If there's already a draft, start the quote on a fresh line below it.
   const lead = composer.textContent.trim() ? "\n" : "";
-  return document.execCommand("insertText", false, lead + quoteText + "\n\n");
+  return document.execCommand("insertText", false, lead + quoteText + "\n");
 }
